@@ -3,6 +3,7 @@ const express = require('express')
 const hbs = require('hbs')
 const forecast = require('../utils/forecast');
 const geocode = require('../utils/geocode')
+const port = process.env.PORT || 3000;
 
 const app = express()
 
@@ -45,7 +46,7 @@ app.get('/weather', (req, res) => {
     const address = req.query.address;
     if (!address) {
         res.send({
-            error: 'please Enter address!'
+            error: 'please Enter valid address!'
         })
         return;
     }
@@ -63,7 +64,7 @@ app.get('/weather', (req, res) => {
                 latitude,
                 longitude,
                 location,
-                forecast : data
+                forecast: data
             })
         })
 
@@ -99,6 +100,6 @@ app.get('*', (req, res) => {
     })
 })
 
-app.listen(3000, () => {
-    console.log('Server is up on port 3000.')
+app.listen(port, () => {
+    console.log('Server is up on port ' + port)
 })
